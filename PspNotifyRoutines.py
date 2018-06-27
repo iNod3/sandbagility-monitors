@@ -14,6 +14,8 @@ class PspNotifyRoutineMonitor(KernelMonitor):
         self.PspProcessNotifyRoutineAddress = self.GetPspNotifyRoutineAddress(self._NOTIFY_ROUTINE)
         self.helper.SetBreakpoint(self.PspProcessNotifyRoutineAddress, self.PspProcessNotifyRoutine, self.cr3, self._NOTIFY_ROUTINE)
 
+        return True
+
     def Uninstall(self):
         self.helper.UnsetBreakpoint(self.PspProcessNotifyRoutineAddress, cr3=None, handler=self.PspProcessNotifyRoutine)
 

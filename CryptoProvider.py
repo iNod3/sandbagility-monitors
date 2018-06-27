@@ -9,15 +9,11 @@ class CryptoProviderMonitor(UserlandMonitor):
 
         self.SetBreakpoint('advapi32!CryptAcquireContextAStub')
         self.SetBreakpoint('advapi32!CryptAcquireContextWStub')
-
         self.SetBreakpoint('advapi32!CryptGenKeyStub')
-
         self.SetBreakpoint('advapi32!CryptCreateHashStub')
         self.SetBreakpoint('advapi32!CryptGetHashParamStub')
-
         self.SetBreakpoint('advapi32!CryptDecryptStub')
         self.SetBreakpoint('advapi32!CryptEncryptStub')
-
         self.SetBreakpoint('advapi32!CryptImportKeyStub')
         self.SetBreakpoint('advapi32!CryptExportKeyStub')
 
@@ -210,6 +206,10 @@ class CryptoProviderMonitor(UserlandMonitor):
             if fp.Name == 'dwBlobType':
                 return self.LookupPublicKeyType(this)
 
+        elif self.FunctionName == 'CryptEncrypt':
+            if fp.Name == 'dwBufLen':
+                parameters.DecryptedBuffer = self.helper.ReadVirtualMemory(parameters.pbData, this)
+
         elif fp.Name == 'Algid':
             return self.LookupAlgIdToString(this)
         
@@ -219,7 +219,7 @@ class CryptoProviderMonitor(UserlandMonitor):
 
         if FunctionName.endswith('Stub'): return FunctionName.replace('Stub', '')
         else: return FunctionName
-        
+       
     def __post__(self, monitor):
 
         Action = monitor.LastOperation.Action

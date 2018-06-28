@@ -12,3 +12,15 @@ class KeFileIoMonitor(KernelGenericMonitor):
         self.SetBreakpoint('nt!NtWriteFile')
 
         return True
+
+class KeFileCreationIoMonitor(KernelGenericMonitor):
+
+    _NAME = 'OpenFile'
+    _DEPENDENCIES = ['ntoskrnl.exe']
+
+    def __install__(self):
+
+        self.SetBreakpoint('nt!NtCreateFile')
+        self.SetBreakpoint('nt!NtOpenFile')
+
+        return True

@@ -5,7 +5,8 @@ import ctypes
 
 class WinsockMonitor(UserlandMonitor):
 
-    _NAME = 'Winsock2'
+    #_NAME = 'Winsock2'
+    _NAME = None
     _DEPENDENCIES = ['ws2_32.dll']
 
     class SockAddr(ctypes.Structure):       

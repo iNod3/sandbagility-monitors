@@ -3,7 +3,8 @@ from Sandbagility.Monitor import KernelMonitor
 
 class SyscallMonitor(KernelMonitor):
 
-    _NAME = 'Syscall'
+    #_NAME = 'Syscall'
+    _NAME = None
     _DEPENDENCIES = ['ntoskrnl.exe']
 
     _SYSCALLS = {}

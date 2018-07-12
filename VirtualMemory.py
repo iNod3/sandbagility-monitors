@@ -2,7 +2,8 @@ from Sandbagility.Monitor import KernelGenericMonitor
 
 class VirtualMemoryMonitor(KernelGenericMonitor):
     
-    _NAME = 'VirtualMemory'
+    #_NAME = 'VirtualMemory'
+    _NAME = None
     _DEPENDENCIES = ['ntoskrnl.exe']
 
     WRITE = 1

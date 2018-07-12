@@ -1,5 +1,15 @@
 from Sandbagility.Monitor import UserlandGenericMonitor as UserlandMonitor
 
+class CryptDecodeObjectMonitor(UserlandMonitor):
+
+    _NAME = 'DecodeObject'
+    _DEPENDENCIES = ['crypt32.dll']
+
+    def __install__(self, NotifyLoadImage=None):
+
+        self.helper.logger.debug('Installed %s' % self.Name)
+        self.SetBreakpoint('crypt32!CryptDecodeObjectEx')
+
 class CryptoProviderMonitor(UserlandMonitor):
 
     _NAME = 'Crypto'
